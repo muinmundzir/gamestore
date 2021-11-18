@@ -31,6 +31,7 @@ export default function FeaturedGame() {
         >
           {games.map((game: GameItemTypes) => (
             <GameItem
+              id={game._id}
               key={game._id}
               title={game.name}
               category={game.category.name}
