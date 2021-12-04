@@ -1,6 +1,32 @@
-import Link from "next/link";
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+import { setLogin } from '../../../services/auth';
 
 export default function SignInForm() {
+  const router = useRouter();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const onSubmit = async () => {
+    const data = { email, password };
+
+    if (!email || !password) {
+      toast.error('Email and Password must be filled!');
+    } else {
+      const result = await setLogin(data);
+      if (result.error) {
+        toast.error(result.message);
+      } else {
+        toast.success('Login Success!');
+        router.replace('/');
+      }
+    }
+  };
+
   return (
     <>
       <h2 className="text-4xl fw-bold color-palette-1 mb-10">Sign In</h2>
@@ -15,6 +41,8 @@ export default function SignInForm() {
           className="form-control rounded-pill text-lg"
           id="email"
           name="email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
           aria-describedby="email"
           placeholder="Enter your email address"
         />
@@ -26,18 +54,20 @@ export default function SignInForm() {
           className="form-control rounded-pill text-lg"
           id="password"
           name="password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
           aria-describedby="password"
           placeholder="Your password"
         />
       </div>
       <div className="button-group d-flex flex-column mx-auto pt-50">
-        <a
+        <button
           className="btn btn-sign-in fw-medium text-lg text-white rounded-pill mb-16"
-          href="../index.html"
-          role="button"
+          type="button"
+          onClick={onSubmit}
         >
           Continue to Sign In
-        </a>
+        </button>
         <Link href="/sign-up">
           <a
             className="btn btn-sign-up fw-medium text-lg color-palette-1 rounded-pill"
@@ -48,7 +78,7 @@ export default function SignInForm() {
           </a>
         </Link>
       </div>
-
+      <ToastContainer />
     </>
   );
 }
