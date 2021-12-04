@@ -18,3 +18,11 @@ export async function getDetailVoucher(id: string) {
   const axiosResponse = response.data;
   return axiosResponse.data;
 }
+
+export async function getGameCategories() {
+  const URL = 'player/category';
+
+  const response = await axios.get(`${ROOT_API}/${API_VERSION}/${URL}`);
+  const axiosResponse = response.data;
+  return axiosResponse.data;
+}
