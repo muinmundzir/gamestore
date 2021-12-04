@@ -20,8 +20,8 @@ export default function SignUpPhoto() {
 
   const getGameCategoriesAPI = useCallback(async () => {
     const data = await getGameCategories();
-    setCategories(data);
-    setSelectedCategory(data[0]._id);
+    setCategories(data.data);
+    setSelectedCategory(data.data[0]._id);
   }, [getGameCategories]);
 
   useEffect(() => {
