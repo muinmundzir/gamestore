@@ -1,10 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 import { getGameCategories } from '../services/player';
 import { setSignUp } from '../services/auth';
 
 export default function SignUpPhoto() {
+  const router = useRouter();
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [image, setImage] = useState('');
@@ -25,12 +29,12 @@ export default function SignUpPhoto() {
   }, []);
 
   useEffect(() => {
-    const getLocalForm = localStorage.getItem('user-form');
+    const getLocalForm = localStorage.getItem('user-form') || '{}';
     setLocalForm(JSON.parse(getLocalForm));
   }, []);
 
   const onSubmit = async () => {
-    const getLocalForm = await localStorage.getItem('user-form');
+    const getLocalForm = await localStorage.getItem('user-form') || '{}';
     const form = JSON.parse(getLocalForm);
     const data = new FormData();
 
@@ -45,7 +49,14 @@ export default function SignUpPhoto() {
     data.append('favorite', selectedCategory);
 
     const result = await setSignUp(data);
-    console.log(result);
+
+    if (result.error) {
+      toast.error(result.message);
+    } else {
+      toast.success('Register Success!');
+      router.replace('/sign-up-success');
+      localStorage.removeItem('form-user');
+    }
   };
 
   return (
@@ -121,6 +132,7 @@ export default function SignUpPhoto() {
           </div>
         </form>
       </div>
+      <ToastContainer />
     </section>
   );
 }
