@@ -1,9 +1,14 @@
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
-import jwt_decode from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 import Link from 'next/link';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+import { JWTPayloadTypes, UserTypes } from '../../../services/data-types';
 
 export default function Auth() {
+  const router = useRouter();
   const [isLogin, setIsLogin] = useState(false);
   const [user, setUser] = useState({
     avatar: '',
@@ -14,14 +19,21 @@ export default function Auth() {
     const token = Cookies.get('token');
     if (token) {
       const jwtToken = atob(token);
-      const payload = jwt_decode(jwtToken);
-      const userData = payload.player;
+      const payload: JWTPayloadTypes = jwtDecode(jwtToken);
+      const userData: UserTypes = payload.player;
       const IMG = process.env.NEXT_PUBLIC_IMAGE;
       user.avatar = `${IMG}/${user.avatar}`;
       setUser(userData);
       setIsLogin(true);
     }
   }, []);
+
+  const onLogout = () => {
+    Cookies.remove('token');
+    toast.success('Successfully Logout');
+    setIsLogin(false);
+    router.push('/');
+  };
 
   if (isLogin) {
     return (
@@ -61,12 +73,11 @@ export default function Auth() {
               </Link>
             </li>
             <li>
-              <Link href="/sign-in">
-                <a className="dropdown-item text-lg color-palette-2">Log Out</a>
-              </Link>
+              <button onClick={onLogout} type="button" className="dropdown-item text-lg color-palette-2">Log Out</button>
             </li>
           </ul>
         </div>
+        <ToastContainer />
       </li>
     );
   }
