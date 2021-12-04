@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
+import Cookies from 'js-cookie';
 import { setLogin } from '../../../services/auth';
 
 export default function SignInForm() {
@@ -22,6 +23,9 @@ export default function SignInForm() {
         toast.error(result.message);
       } else {
         toast.success('Login Success!');
+        const { token } = result.data;
+        const tokenBase64 = btoa(token);
+        Cookies.set('token', tokenBase64, { expires: 1 });
         router.replace('/');
       }
     }
