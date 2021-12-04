@@ -1,7 +1,53 @@
+import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { getGameCategories } from '../services/player';
+import { setSignUp } from '../services/auth';
 
 export default function SignUpPhoto() {
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [image, setImage] = useState('');
+  const [imagePreview, setImagePreview] = useState(null);
+  const [localForm, setLocalForm] = useState({
+    name: '',
+    email: '',
+  });
+
+  const getGameCategoriesAPI = useCallback(async () => {
+    const data = await getGameCategories();
+    setCategories(data);
+    setSelectedCategory(data[0]._id);
+  }, [getGameCategories]);
+
+  useEffect(() => {
+    getGameCategoriesAPI();
+  }, []);
+
+  useEffect(() => {
+    const getLocalForm = localStorage.getItem('user-form');
+    setLocalForm(JSON.parse(getLocalForm));
+  }, []);
+
+  const onSubmit = async () => {
+    const getLocalForm = await localStorage.getItem('user-form');
+    const form = JSON.parse(getLocalForm);
+    const data = new FormData();
+
+    data.append('image', image);
+    data.append('name', form.name);
+    data.append('email', form.email);
+    data.append('password', form.password);
+    data.append('username', form.name);
+    data.append('phoneNumber', form.phoneNumber);
+    data.append('role', 'user');
+    data.append('status', 'Yes');
+    data.append('favorite', selectedCategory);
+
+    const result = await setSignUp(data);
+    console.log(result);
+  };
+
   return (
     <section className="sign-up-photo mx-auto pt-lg-227 pb-lg-227 pt-130 pb-50">
       <div className="container mx-auto">
@@ -11,13 +57,24 @@ export default function SignUpPhoto() {
               <div className="mb-20">
                 <div className="image-upload text-center">
                   <label htmlFor="avatar">
-                    <Image src="/icon/upload.svg" width={120} height={120} alt="upload" />
+                    {imagePreview
+                      ? <img src={imagePreview} className="img-upload" alt="upload" />
+                      : <Image src="/icon/upload.svg" width={120} height={120} alt="upload" />}
                   </label>
-                  <input id="avatar" type="file" name="avatar" accept="image/png, image/jpeg" />
+                  <input
+                    id="avatar"
+                    type="file"
+                    name="avatar"
+                    onChange={(e) => {
+                      setImage(e.target.files[0]);
+                      setImagePreview(URL.createObjectURL(e.target.files[0]));
+                    }}
+                    accept="image/png, image/jpeg"
+                  />
                 </div>
               </div>
-              <h2 className="fw-bold text-xl text-center color-palette-1 m-0">Shayna Anne</h2>
-              <p className="text-lg text-center color-palette-1 m-0">shayna@anne.com</p>
+              <h2 className="fw-bold text-xl text-center color-palette-1 m-0">{localForm.name}</h2>
+              <p className="text-lg text-center color-palette-1 m-0">{localForm.email}</p>
               <div className="pt-50 pb-50">
                 <label htmlFor="category" className="form-label text-lg fw-medium color-palette-1 mb-10">
                   Favorite
@@ -28,25 +85,28 @@ export default function SignUpPhoto() {
                   name="category"
                   className="form-select d-block w-100 rounded-pill text-lg"
                   aria-label="Favorite Game"
+                  onChange={(e) => setSelectedCategory(e.target.value)}
                 >
-                  <option value="" disabled selected>Select Category</option>
-                  <option value="fps">First Person Shoter</option>
-                  <option value="rpg">Role Playing Game</option>
-                  <option value="arcade">Arcade</option>
-                  <option value="sport">Sport</option>
+                  {categories.map((category) => (
+                    <option
+                      key={category._id}
+                      value={category._id}
+                    >
+                      {category.name}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
 
             <div className="button-group d-flex flex-column mx-auto">
-              <Link href="/sign-up-success">
-                <a
-                  className="btn btn-create fw-medium text-lg text-white rounded-pill mb-16"
-                  role="button"
-                >
-                  Create My Account
-                </a>
-              </Link>
+              <button
+                className="btn btn-create fw-medium text-lg text-white rounded-pill mb-16"
+                type="button"
+                onClick={onSubmit}
+              >
+                Create My Account
+              </button>
               <Link href="/terms-and-conditions">
                 <a
                   className="btn btn-tnc text-lg color-palette-1 text-decoration-underline pt-15"
