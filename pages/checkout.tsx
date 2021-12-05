@@ -9,6 +9,7 @@ import { JWTPayloadTypes, UserTypes } from '../services/data-types/index'
 interface CheckoutProps {
   user: UserTypes
 }
+
 export default function Checkout(props: CheckoutProps) {
   const { user } = props;
 

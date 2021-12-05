@@ -1,4 +1,41 @@
+import { useState, useEffect } from 'react';
+import NumberFormat from 'react-number-format';
+
 export default function CheckoutDetail() {
+  const [checkoutItem, setCheckoutItem] = useState({
+    verifyID: '',
+    nominalItem: {
+      coinName: '',
+      price: 0,
+      coinQuantity: 0,
+      _id: '',
+    },
+    paymentItem: {
+      payment: {
+        type: '',
+        _id: '',
+      },
+      bank: {
+        bankName: '',
+        name: '',
+        accountNumber: '',
+        _id: '',
+      },
+    },
+    bankName: '',
+  });
+
+  useEffect(() => {
+    const dataItem = localStorage.getItem('data-topup');
+    const data = JSON.parse(dataItem!);
+    setCheckoutItem(data);
+    console.log(data);
+  }, []);
+
+  const itemPrice = checkoutItem.nominalItem.price;
+  const itemTax = itemPrice * (10 / 100);
+  const priceTotal = itemPrice + itemTax;
+
   return (
     <>
       <div className="purchase pt-md-50 pt-30">
@@ -8,7 +45,7 @@ export default function CheckoutDetail() {
           <span
             className="purchase-details"
           >
-            masayoshizero
+            {checkoutItem.verifyID}
           </span>
         </p>
         <p className="text-lg color-palette-1 mb-20">
@@ -17,21 +54,46 @@ export default function CheckoutDetail() {
         </p>
         <p className="text-lg color-palette-1 mb-20">
           Item
-          <span className="purchase-details">250 Diamonds</span>
+          <span className="purchase-details">
+            {checkoutItem.nominalItem.coinQuantity}
+            {' '}
+            {checkoutItem.nominalItem.coinName}
+          </span>
         </p>
         <p className="text-lg color-palette-1 mb-20">
           Price
-          <span className="purchase-details">Rp 42.280.500</span>
+          <span className="purchase-details">
+            <NumberFormat
+              value={itemPrice}
+              prefix="Rp. "
+              displayType="text"
+              thousandSeparator="."
+              decimalSeparator=","
+            />
+          </span>
         </p>
         <p className="text-lg color-palette-1 mb-20">
           Tax (10%)
-          <span className="purchase-details">Rp 4.228.000</span>
+          <span className="purchase-details">
+            <NumberFormat
+              value={itemTax}
+              prefix="Rp. "
+              displayType="text"
+              thousandSeparator="."
+              decimalSeparator=","
+            />
+          </span>
         </p>
         <p className="text-lg color-palette-1 mb-20">
           Total
           <span className="purchase-details color-palette-4">
-            Rp
-            55.000.600
+            <NumberFormat
+              value={priceTotal}
+              prefix="Rp. "
+              displayType="text"
+              thousandSeparator="."
+              decimalSeparator=","
+            />
           </span>
         </p>
       </div>
@@ -40,30 +102,27 @@ export default function CheckoutDetail() {
         <p className="text-lg color-palette-1 mb-20">
           Your Account Name
           <span className="purchase-details">
-            Masayoshi
-            Angga Zero
+            {checkoutItem.bankName}
           </span>
         </p>
         <p className="text-lg color-palette-1 mb-20">
           Type
-          <span className="payment-details">Worldwide Transfer</span>
+          <span className="payment-details">{checkoutItem.paymentItem.payment.type}</span>
         </p>
         <p className="text-lg color-palette-1 mb-20">
           Bank Name
-          <span className="payment-details">Mandiri</span>
+          <span className="payment-details">{checkoutItem.paymentItem.bank.bankName}</span>
         </p>
         <p className="text-lg color-palette-1 mb-20">
           Bank Account Name
           <span className="payment-details">
-            PT Store GG
-            Indonesia
+            {checkoutItem.paymentItem.bank.name}
           </span>
         </p>
         <p className="text-lg color-palette-1 mb-20">
           Bank Number
           <span className="payment-details">
-            1800 - 9090 -
-            2021
+            {checkoutItem.paymentItem.bank.accountNumber}
           </span>
         </p>
       </div>
