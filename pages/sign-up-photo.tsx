@@ -2,8 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { getGameCategories } from '../services/player';
 import { setSignUp } from '../services/auth';
 
@@ -54,7 +53,7 @@ export default function SignUpPhoto() {
       toast.error(result.message);
     } else {
       toast.success('Register Success!');
-      router.replace('/sign-up-success');
+      router.push('/sign-up-success');
       localStorage.removeItem('form-user');
     }
   };
@@ -132,7 +131,6 @@ export default function SignUpPhoto() {
           </div>
         </form>
       </div>
-      <ToastContainer />
     </section>
   );
 }

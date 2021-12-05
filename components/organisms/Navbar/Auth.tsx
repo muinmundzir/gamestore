@@ -3,8 +3,7 @@ import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 import jwtDecode from 'jwt-decode';
 import Link from 'next/link';
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { JWTPayloadTypes, UserTypes } from '../../../services/data-types';
 
 export default function Auth() {
@@ -32,7 +31,7 @@ export default function Auth() {
     Cookies.remove('token');
     toast.success('Successfully Logout');
     setIsLogin(false);
-    router.push('/');
+    router.push('/sign-in');
   };
 
   if (isLogin) {
@@ -77,7 +76,6 @@ export default function Auth() {
             </li>
           </ul>
         </div>
-        <ToastContainer />
       </li>
     );
   }

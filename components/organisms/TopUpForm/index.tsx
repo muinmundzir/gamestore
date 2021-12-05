@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import { BanksTypes, NominalTypes, PaymentTypes } from '../../../services/data-types';
 import NominalItem from './NominalItem';
@@ -31,8 +30,6 @@ export default function TopUpForm(props: TopUpFormProps) {
   };
 
   const onSubmit = () => {
-    localStorage.setItem('nominal-item', nominalItem);
-    localStorage.setItem('payment-item', paymentItem);
     if (verifyID === '' || bankName === '' || nominalItem === {} || paymentItem === {}) {
       toast.error('Please fill all required data');
     } else {

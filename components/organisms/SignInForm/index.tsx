@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
 import { setLogin } from '../../../services/auth';
 
@@ -26,7 +25,7 @@ export default function SignInForm() {
         const { token } = result.data;
         const tokenBase64 = btoa(token);
         Cookies.set('token', tokenBase64, { expires: 1 });
-        router.replace('/');
+        router.push('/');
       }
     }
   };
@@ -82,7 +81,6 @@ export default function SignInForm() {
           </a>
         </Link>
       </div>
-      <ToastContainer />
     </>
   );
 }
