@@ -34,7 +34,6 @@ export default function CheckoutConfirmation() {
         router.push('/complete-checkout');
       }
     }
-    
   };
 
   return (
