@@ -80,8 +80,9 @@ export default function TransactionContent() {
                       title={transaction.historyVoucherTopup.gameName}
                       category={transaction.historyVoucherTopup.category}
                       item={`${transaction.historyVoucherTopup.coinQuantity} ${transaction.historyVoucherTopup.coinName}`}
-                      price={transaction.historyVoucherTopup.price}
+                      price={transaction.value}
                       status={transaction.status}
+                      id={transaction._id}
                     />
                   ))
                   : (
