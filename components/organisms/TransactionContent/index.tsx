@@ -9,21 +9,26 @@ import { HistoryTransactionTypes } from '../../../services/data-types';
 export default function TransactionContent() {
   const [total, setTotal] = useState(0);
   const [transactions, setTransactions] = useState([]);
+  const [tab, setTab] = useState('all');
 
-  const getMemberTransactionsAPI = useCallback(async () => {
-    const response = await getMemberTransactions();
+  const getMemberTransactionsAPI = useCallback(async (value) => {
+    const response = await getMemberTransactions(value);
     if (response.error) {
       toast.error(response.message);
     } else {
       setTotal(response.data.total);
       setTransactions(response.data.data);
-      console.log(transactions);
     }
-  }, [getMemberTransactions]);
+  }, []);
 
   useEffect(() => {
-    getMemberTransactionsAPI();
+    getMemberTransactionsAPI('all');
   }, []);
+
+  const onTabClickedHandler = (value) => {
+    setTab(value);
+    getMemberTransactionsAPI(value);
+  };
 
   const IMG = process.env.NEXT_PUBLIC_IMAGE;
 
@@ -46,10 +51,10 @@ export default function TransactionContent() {
         <div className="row mt-30 mb-20">
           <div className="col-lg-12 col-12 main-content">
             <div id="list_status_title">
-              <ButtonTab title="All Trx" active />
-              <ButtonTab title="Success" active={false} />
-              <ButtonTab title="Pending" active={false} />
-              <ButtonTab title="Failed" active={false} />
+              <ButtonTab title="All Trx" active={tab === 'all'} onClick={() => onTabClickedHandler('all')} />
+              <ButtonTab title="Success" active={tab === 'success'} onClick={() => onTabClickedHandler('success')} />
+              <ButtonTab title="Pending" active={tab === 'pending'} onClick={() => onTabClickedHandler('pending')} />
+              <ButtonTab title="Failed" active={tab === 'failed'} onClick={() => onTabClickedHandler('failed')} />
             </div>
           </div>
         </div>
@@ -79,7 +84,11 @@ export default function TransactionContent() {
                       status={transaction.status}
                     />
                   ))
-                  : 'Transaction null'}
+                  : (
+                    <tr data-category="pending" className="align-middle">
+                      <th scope="row" colSpan={4} className="text-center">=== No Transaction ===</th>
+                    </tr>
+                  )}
               </tbody>
             </table>
           </div>
