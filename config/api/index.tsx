@@ -34,10 +34,11 @@ const callAPI = async ({
     return res;
   }
 
+  const { length } = Object.keys(response.data);
   const res = {
     error: false,
     message: 'success',
-    data: response.data.data,
+    data: length > 1 ? response.data : response.data.data,
   };
 
   return res;
