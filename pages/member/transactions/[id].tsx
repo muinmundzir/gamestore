@@ -1,6 +1,5 @@
-import jwtDecode from "jwt-decode";
 import TransactionDetailContent from "../../../components/organisms/TransactionDetailContent";
-import { HistoryTransactionTypes, JWTPayloadTypes, UserTypes } from "../../../services/data-types";
+import { HistoryTransactionTypes } from "../../../services/data-types";
 import { getTransactionDetail } from "../../../services/member";
 
 interface TransactionDetailProps {
@@ -40,10 +39,6 @@ export async function getServerSideProps({ req, params }: GetServerSideProps) {
   }
 
   const jwtToken = Buffer.from(token, 'base64').toString('ascii');
-  const payload: JWTPayloadTypes = jwtDecode(jwtToken);
-  const userData: UserTypes = payload.player;
-  const IMG = process.env.NEXT_PUBLIC_IMAGE;
-  userData.avatar = `${IMG}/${userData.avatar}`;
 
   const response = await getTransactionDetail(id, jwtToken);
 

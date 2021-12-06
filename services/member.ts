@@ -13,7 +13,7 @@ export async function getMemberOverview() {
   });
 }
 
-export async function getMemberTransactions(parameter) {
+export async function getMemberTransactions(parameter: string) {
   let params = '';
   if (parameter === 'all') {
     params = '';
