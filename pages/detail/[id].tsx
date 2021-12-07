@@ -4,6 +4,7 @@ import TopUpForm from '../../components/organisms/TopUpForm';
 import TopUpItem from '../../components/organisms/TopUpItem';
 import { getDetailVoucher, getFeaturedGames } from '../../services/player';
 import { GameItemTypes, NominalTypes, PaymentTypes } from '../../services/data-types';
+import { useEffect } from 'react';
 
 interface DetailProps {
   dataItem: GameItemTypes;
@@ -12,6 +13,9 @@ interface DetailProps {
 }
 
 export default function Detail({ dataItem, nominals, payments }: DetailProps) {
+  useEffect(() => {
+    localStorage.setItem('data-item', JSON.stringify(dataItem));
+  }, []);
   return (
     <>
       <Navbar />
