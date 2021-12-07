@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useEffect } from 'react';
 import AOS from 'aos';
 import Navbar from '../components/organisms/Navbar';
@@ -14,6 +15,23 @@ export default function Home() {
   }, []);
   return (
     <>
+      <Head>
+        <title>GameStore - Get a New Experience in Gaming</title>
+        <meta
+          title="description"
+          content="Kami menyediakan jutaan cara untuk membantu
+players menjadi pemenang sejati"
+        />
+        <meta
+          property="og:title"
+          content="GameStore - Get a New Experience in Gaming"
+        />
+        <meta
+          property="og:descripton"
+          content="Kami menyediakan jutaan cara untuk membantu
+          players menjadi pemenang sejati"
+        />
+      </Head>
       <Navbar />
       <MainBanner />
       <TransactionStep />
