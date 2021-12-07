@@ -1,6 +1,6 @@
-import TransactionDetailContent from "../../../components/organisms/TransactionDetailContent";
-import { HistoryTransactionTypes } from "../../../services/data-types";
-import { getTransactionDetail } from "../../../services/member";
+import TransactionDetailContent from '../../../components/organisms/TransactionDetailContent';
+import { HistoryTransactionTypes } from '../../../services/data-types';
+import { getTransactionDetail } from '../../../services/member';
 
 interface TransactionDetailProps {
   transactionDetail: HistoryTransactionTypes;

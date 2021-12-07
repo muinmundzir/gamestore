@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 interface SupportItemProps {
   title: string;
@@ -6,7 +6,7 @@ interface SupportItemProps {
 }
 
 export default function SupportItem(props: SupportItemProps) {
-  const { title, href } = props;
+  const { title, href = '/' } = props;
   return (
     <li className="mb-6">
       <Link href={href}>

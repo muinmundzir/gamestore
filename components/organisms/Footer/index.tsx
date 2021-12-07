@@ -1,8 +1,8 @@
-import Image from "next/image";
-import Link from "next/link";
-import Company from "../../molecules/FooterItem/Company";
-import Connect from "../../molecules/FooterItem/Connect";
-import Support from "../../molecules/FooterItem/Support";
+import Image from 'next/image';
+import Link from 'next/link';
+import Company from '../../molecules/FooterItem/Company';
+import Connect from '../../molecules/FooterItem/Connect';
+import Support from '../../molecules/FooterItem/Support';
 
 export default function Footer() {
   return (

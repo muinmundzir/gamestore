@@ -4,7 +4,7 @@ import jwtDecode from 'jwt-decode';
 import { JWTPayloadTypes, UserTypes } from '../../../services/data-types';
 
 export default function Profile() {
-  const [isLogin, setIsLogin] = useState(false);
+  const [, setIsLogin] = useState(false);
   const [user, setUser] = useState({
     avatar: '',
     name: '',

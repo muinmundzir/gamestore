@@ -1,5 +1,4 @@
-import Image from "next/image";
-import Illustration from "./Illustration";
+import Illustration from './Illustration';
 
 export default function MainBanner() {
   return (

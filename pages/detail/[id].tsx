@@ -1,10 +1,10 @@
+import { useEffect } from 'react';
 import Footer from '../../components/organisms/Footer';
 import Navbar from '../../components/organisms/Navbar';
 import TopUpForm from '../../components/organisms/TopUpForm';
 import TopUpItem from '../../components/organisms/TopUpItem';
 import { getDetailVoucher, getFeaturedGames } from '../../services/player';
 import { GameItemTypes, NominalTypes, PaymentTypes } from '../../services/data-types';
-import { useEffect } from 'react';
 
 interface DetailProps {
   dataItem: GameItemTypes;

@@ -1,4 +1,4 @@
-import CompanyItem from "./CompanyItem";
+import CompanyItem from './CompanyItem';
 
 export default function Company() {
   return (

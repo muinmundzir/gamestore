@@ -25,7 +25,7 @@ export default function TransactionContent() {
     getMemberTransactionsAPI('all');
   }, []);
 
-  const onTabClickedHandler = (value) => {
+  const onTabClickedHandler = (value: string) => {
     setTab(value);
     getMemberTransactionsAPI(value);
   };

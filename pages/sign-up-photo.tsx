@@ -5,13 +5,14 @@ import Link from 'next/link';
 import { toast } from 'react-toastify';
 import { getGameCategories } from '../services/player';
 import { setSignUp } from '../services/auth';
+import { CategoryTypes } from '../services/data-types';
 
 export default function SignUpPhoto() {
   const router = useRouter();
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [image, setImage] = useState('');
-  const [imagePreview, setImagePreview] = useState(null);
+  const [image, setImage] = useState<any>('');
+  const [imagePreview, setImagePreview] = useState<any>('');
   const [localForm, setLocalForm] = useState({
     name: '',
     email: '',
@@ -67,17 +68,17 @@ export default function SignUpPhoto() {
               <div className="mb-20">
                 <div className="image-upload text-center">
                   <label htmlFor="avatar">
-                    {imagePreview
-                      ? <img src={imagePreview} className="img-upload" alt="upload" />
-                      : <Image src="/icon/upload.svg" width={120} height={120} alt="upload" />}
+                    {imagePreview === '/'
+                      ? <Image src="/icon/upload.svg" width={120} height={120} alt="upload" />
+                      : <img src={imagePreview} className="img-upload" alt="upload" />}
                   </label>
                   <input
                     id="avatar"
                     type="file"
                     name="avatar"
                     onChange={(e) => {
-                      setImage(e.target.files[0]);
-                      setImagePreview(URL.createObjectURL(e.target.files[0]));
+                      setImage(e.target.files![0]);
+                      setImagePreview(URL.createObjectURL(e.target.files![0]));
                     }}
                     accept="image/png, image/jpeg"
                   />
@@ -97,7 +98,7 @@ export default function SignUpPhoto() {
                   aria-label="Favorite Game"
                   onChange={(e) => setSelectedCategory(e.target.value)}
                 >
-                  {categories.map((category) => (
+                  {categories.map((category: CategoryTypes) => (
                     <option
                       key={category._id}
                       value={category._id}

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 interface ConnectItemProps {
   title: string;
@@ -6,7 +6,7 @@ interface ConnectItemProps {
 }
 
 export default function ConnectItem(props: ConnectItemProps) {
-  const { title, href } = props;
+  const { title, href = '/' } = props;
   return (
     <li className="mb-6">
       <Link href={href}>

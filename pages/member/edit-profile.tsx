@@ -8,17 +8,23 @@ import Sidebar from '../../components/organisms/Sidebar';
 import { JWTPayloadTypes, UserTypes } from '../../services/data-types';
 import { setProfile } from '../../services/member';
 
+interface UserStateTypes {
+  id: string;
+  name: string;
+  email: string;
+  avatar: any;
+}
+
 export default function EditProfile() {
   const router = useRouter();
-  const [user, setUser] = useState({
+  const [user, setUser] = useState<UserStateTypes>({
     id: '',
     name: '',
     email: '',
     avatar: '',
-    phoneNumber: '',
   });
 
-  const [imagePreview, setImagePreview] = useState(null);
+  const [imagePreview, setImagePreview] = useState('/');
 
   useEffect(() => {
     const token = Cookies.get('token');
@@ -34,7 +40,7 @@ export default function EditProfile() {
     const data = new FormData();
     data.append('image', user.avatar);
     data.append('name', user.name);
-    data.append('phoneNumber', user.phoneNumber);
+    // data.append('phoneNumber', user.phoneNumber);
     const response = await setProfile(data);
     if (response.error) {
       toast.error(response.message);
@@ -57,10 +63,10 @@ export default function EditProfile() {
               <div className="photo d-flex">
                 <div className="image-upload">
                   <label htmlFor="avatar">
-                    {imagePreview ? (
-                      <img src={imagePreview} alt="icon upload" width={90} height={90} style={{ borderRadius: '100%' }} />
-                    ) : (
+                    {imagePreview === '/' ? (
                       <img src={`${IMG}/${user.avatar}`} alt="icon upload" width={90} height={90} style={{ borderRadius: '100%' }} />
+                    ) : (
+                      <img src={imagePreview} alt="icon upload" width={90} height={90} style={{ borderRadius: '100%' }} />
                     )}
                   </label>
                   <input
@@ -69,7 +75,7 @@ export default function EditProfile() {
                     name="avatar"
                     accept="image/png, image/jpeg"
                     onChange={(event) => {
-                      const img = event.target.files[0];
+                      const img = event.target.files![0];
                       setImagePreview(URL.createObjectURL(img));
                       setUser({
                         ...user,
@@ -92,7 +98,7 @@ export default function EditProfile() {
               <div className="pt-30">
                 <Input label="Email Address" value={user.email} disabled />
               </div>
-              <div className="pt-30">
+              {/* <div className="pt-30">
                 <Input
                   label="Phone"
                   value={user.phoneNumber}
@@ -101,7 +107,7 @@ export default function EditProfile() {
                     phoneNumber: event.target.value,
                   })}
                 />
-              </div>
+              </div> */}
               <div className="button-group d-flex flex-column pt-50">
                 <button
                   type="button"

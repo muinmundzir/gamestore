@@ -1,18 +1,12 @@
-import CheckoutItem from '../components/organisms/CheckoutItem';
-import CheckoutDetail from '../components/organisms/CheckoutDetail';
-import CheckoutConfirmation from '../components/organisms/CheckoutConfirmation';
 import Image from 'next/image';
 import Link from 'next/link';
 import jwtDecode from 'jwt-decode';
-import { JWTPayloadTypes, UserTypes } from '../services/data-types/index'
+import CheckoutItem from '../components/organisms/CheckoutItem';
+import CheckoutDetail from '../components/organisms/CheckoutDetail';
+import CheckoutConfirmation from '../components/organisms/CheckoutConfirmation';
+import { JWTPayloadTypes, UserTypes } from '../services/data-types/index';
 
-interface CheckoutProps {
-  user: UserTypes
-}
-
-export default function Checkout(props: CheckoutProps) {
-  const { user } = props;
-
+export default function Checkout() {
   return (
     <>
       <section className="checkout mx-auto pt-md-100 pb-md-145 pt-30 pb-30">

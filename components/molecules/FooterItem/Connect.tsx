@@ -1,4 +1,4 @@
-import ConnectItem from "./ConnectItem";
+import ConnectItem from './ConnectItem';
 
 export default function Connect() {
   return (

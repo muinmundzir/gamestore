@@ -29,7 +29,8 @@ export default function ChekoutItem() {
           {gameItem.name}
         </p>
         <p className="color-palette-2 m-0">
-          Category: {gameItem.category.name}
+          Category:
+          {gameItem.category.name}
         </p>
       </div>
     </div>

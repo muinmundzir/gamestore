@@ -1,6 +1,6 @@
-import Image from "next/image";
-import { ReactNode } from "react";
-import NumberFormat from "react-number-format";
+import Image from 'next/image';
+import { ReactNode } from 'react';
+import NumberFormat from 'react-number-format';
 
 interface CategoryProps {
   children: ReactNode;

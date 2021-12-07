@@ -1,15 +1,9 @@
-import OverviewContent from "../../components/organisms/OverviewContent";
-import Sidebar from "../../components/organisms/Sidebar";
-import { JWTPayloadTypes, UserTypes } from "../../services/data-types";
-import jwtDecode from "jwt-decode";
+import jwtDecode from 'jwt-decode';
+import { JWTPayloadTypes, UserTypes } from '../../services/data-types';
+import OverviewContent from '../../components/organisms/OverviewContent';
+import Sidebar from '../../components/organisms/Sidebar';
 
-interface MemberProps {
-  user: UserTypes;
-}
-
-export default function Member(props: MemberProps) {
-  const { user } = props;
-
+export default function Member() {
   return (
     <section className="overview overflow-auto">
       <Sidebar activeMenu="overview" />

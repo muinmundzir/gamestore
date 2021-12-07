@@ -1,4 +1,4 @@
-import SupportItem from "./SupportItem";
+import SupportItem from './SupportItem';
 
 export default function Support() {
   return (

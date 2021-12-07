@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
-import Cookies from 'js-cookie'
-import Footer from "./Footer";
-import MenuItem from "./MenuItem";
-import Profile from "./Profile";
+import Cookies from 'js-cookie';
+import Footer from './Footer';
+import MenuItem from './MenuItem';
+import Profile from './Profile';
 
 interface SidebarProps {
   activeMenu: 'overview' | 'transactions' | 'settings'
