@@ -1,5 +1,5 @@
 interface TopUpItemProps {
-  type: 'desktop' | 'mobile';
+  type: string;
   data: {
     name: string;
     thumbnail: string;
