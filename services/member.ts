@@ -38,3 +38,14 @@ export async function getTransactionDetail(id: string, token: string) {
     serverToken: token,
   });
 }
+
+export async function setProfile(data: FormData) {
+  const url = `${ROOT_API}/${API_VERSION}/player/profile`;
+
+  return callAPI({
+    url,
+    method: 'PUT',
+    data,
+    token: true,
+  });
+}
