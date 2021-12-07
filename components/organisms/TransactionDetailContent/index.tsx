@@ -1,5 +1,5 @@
-import { HistoryTransactionTypes } from "../../../services/data-types";
-import Row from "./Row";
+import { HistoryTransactionTypes } from '../../../services/data-types';
+import Row from './Row';
 
 interface TransactionDetailContentProps {
   data: HistoryTransactionTypes;
@@ -7,14 +7,15 @@ interface TransactionDetailContentProps {
 
 export default function TransactionDetailContent(props: TransactionDetailContentProps) {
   const { data } = props;
-  console.log(data);
-  
   const IMG = process.env.NEXT_PUBLIC_IMAGE;
-  
+
   return (
     <main className="main-wrapper">
       <div className="ps-lg-0">
-        <h2 className="text-4xl fw-bold color-palette-1 mb-30">Details #{data._id}</h2>
+        <h2 className="text-4xl fw-bold color-palette-1 mb-30">
+          Details #
+          {data._id}
+        </h2>
         <div className="details">
           <div className="main-content main-content-card overflow-auto">
             <section className="checkout mx-auto">
@@ -35,7 +36,10 @@ export default function TransactionDetailContent(props: TransactionDetailContent
                     <p className="fw-bold text-xl color-palette-1 mb-10">
                       {data.historyVoucherTopup.gameName}
                     </p>
-                    <p className="color-palette-2 m-0">Category: {data.historyVoucherTopup.category}</p>
+                    <p className="color-palette-2 m-0">
+                      Category:
+                      {data.historyVoucherTopup.category}
+                    </p>
                   </div>
                 </div>
                 <div>

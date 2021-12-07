@@ -84,6 +84,7 @@ export interface HistoryTransactionTypes {
   accountUser: string;
   tax: number;
   historyPayment: HistoryPaymentTypes;
+  name: string;
 }
 
 export interface CategoryTransactionHistoryTypes {

@@ -19,7 +19,6 @@ export default function Profile() {
       const userData: UserTypes = payload.player;
       const IMG = process.env.NEXT_PUBLIC_IMAGE;
       userData.avatar = `${IMG}/${user.avatar}`;
-      // console.log(userData);
       setIsLogin(true);
       setUser(userData);
     }
